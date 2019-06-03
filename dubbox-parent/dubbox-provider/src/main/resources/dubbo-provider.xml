@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd    
+       http://code.alibabatech.com/schema/dubbo    
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="dubbox-provider" />
+	<!--zookeeper注册中心 -->
+	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
+	
+	<!-- 发布服务 -->
+	<dubbo:service version="1.0.0" timeout="5000" connections="100" interface="com.xc.service.DemoService" ref="demoService"/>
+	<dubbo:service version="1.0.0" timeout="5000" connections="100" interface="com.xc.service.UserService" ref="userService"/>
+	<!-- 和本地bean一样实现服务 -->
+	<bean id="demoService" class="com.xc.service.impl.DemoServiceImpl" />
+	<bean id="userService" class="com.xc.service.impl.UserServiceImpl" />
+	
+	<dubbo:protocol name="dubbo" port="20880" />
+	<!-- 指定端口8080，使用内嵌服务器jetty[默认],提供http访问 -->
+    <dubbo:protocol name="rest" port="9090" server="jetty"  extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter"/>
+    <!--<dubbo:protocol name="rest" port="9090" server="tomcat"/> 高性能rest的场景下采用tomcat -->
+</beans> 

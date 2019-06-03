@@ -1,0 +1,8 @@
+1.先启动zookeeper，再启动dubbox-provider中的Provider.java,运行Consumer.java测试
+
+2.测试restful，在浏览器中访问： 
+http://127.0.0.1:9090/user/1001?uid=1001
+
+3.客户端访问方式 
+1.dubbo消费者–>dubbox提供者 
+2.非dubbo消费者–>使用restful请求 
